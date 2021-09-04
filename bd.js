@@ -1,6 +1,7 @@
 module.exports.currencies = [
   { id : 1, "name": "CLP", "isoDecimals": 0, "calculationDecimals": 6 },
-  { id : 2, "name": "USD", "isoDecimals": 2, "calculationDecimals": 6 }
+  { id : 2, "name": "USD", "isoDecimals": 2, "calculationDecimals": 6 },
+  { id : 3, "name": "SOL", "isoDecimals": 2, "calculationDecimals": 6 }
 ];
 
 module.exports.taxes = [
@@ -15,6 +16,18 @@ module.exports.taxes = [
     name: "AVI POR MONTO",
     type: "ammount",
     tasa: "200",
+  },
+  {
+    id: 3,
+    name: "OTRO",
+    type: "percentual",
+    tasa: "10",
+  },
+  {
+    id: 4,
+    name: "OTRO POR MONTO",
+    type: "ammount",
+    tasa: "10",
   }
 ];
 
@@ -54,5 +67,17 @@ module.exports.products = [
     cost: { ammount : 23.77, idMoney: 2 },
     discounts: [],
     taxes: [2]
+  },
+  {  
+    href: "/v1/products/4.json",
+    id: 4,
+    name: "Palo con clavo",
+    description: "Un palo con un clavo para maximizar el daño.",
+    classification: 1,    
+    state: 0,
+    salePrice: { ammount : 99.99, idMoney: 2 },
+    cost: { ammount : 13.47, idMoney: 2 },
+    discounts: [],
+    taxes: [2, 3]
   }
 ];

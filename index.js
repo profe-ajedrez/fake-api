@@ -1,12 +1,5 @@
 const bd = require('./bd');
 
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./fake_api.db', sqlite3.OPEN_READWRITE, (err) => {
-  if (err) {
-    return console.log(err.message);
-  }
-  console.log('Yippi yeah yeeah! Db is ready!');
-});
 
 const express = require("express");
 const app = express();
@@ -66,6 +59,14 @@ const getModel = (params, modelTag) => {
   return model;
 };
 
+const getMoneys = () => {
+  return bd.currencies;
+};
+
+const getAllTaxes = () => {
+  return bd.taxes;
+};
+
 const getMoney = (params) => { return getModel(params, 'currencies') };
 const getTaxes = (params) => { return getModel(params, 'taxes') };
 
@@ -93,7 +94,19 @@ app.get('/api/v1/products/:id.json', (req, res) => {
   res.json( { data: prod, count: count } );
 });
 
-app.get('/api/v1/money/:id.json', (req, res) => {  
+
+app.get('/api/v1/moneys', (req, res) => {
+  const moneys = getMoneys() ?? [];
+  res.json( { data: moneys, count: moneys.length });
+});
+
+app.get('/api/v1/taxes', (req, res) => {
+  const taxes = getAllTaxes() ?? [];
+  res.json( { data: taxes, count: taxes.length });
+});
+
+
+app.get('/api/v1/moneys/:id.json', (req, res) => {  
   const money = getMoney(req.params) ?? null;
   const count = !!money ? 1 : 0;
   res.json( { data: money, count: count } );
@@ -113,8 +126,8 @@ server = app.listen(3000, () => {
 });
 
 process.on('SIGINT', () => {
-  db.close();
-  server.close();
+  server.close(() => {
+    console.log("Por los bigotes de Sam bigotes! Estamos cerrando");
+  });
 
-  console.log("Por los bigotes de Sam bigotes! Estamos cerrando");
 });

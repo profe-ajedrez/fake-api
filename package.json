@@ -3,8 +3,7 @@
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
-    "express": "^4.17.1",
-    "sqlite3": "^5.0.2"
+    "express": "^4.17.1"
   },
   "name": "fake_api",
   "version": "1.0.0",
